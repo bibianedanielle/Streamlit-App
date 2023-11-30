@@ -34,7 +34,7 @@ def home():
         Découvrez en quelques clics comment notre technologie utilise des analyses de pointe pour vous aider à anticiper et à gérer les risques d'inondation.
         """)
 
-    #st.video("chemin_vers_video_tutoriel.mp4")
+    # st.video("chemin_vers_video_tutoriel.mp4")
 
     st.markdown("## Prêt à changer la donne dans la prévention des crues ?")
 
@@ -49,88 +49,27 @@ def home():
             """, unsafe_allow_html=True)
 
 
-# Fonction pour la page d'importation de données
-def importation():
-    st.title("Importation de Fichiers")
-    st.markdown("""
-        ### Vos données, notre expertise.
-        Téléchargez vos fichiers et voyez la magie opérer. Nous supportons une variété de formats pour une intégration sans effort.
-        """)
-
-    file_type = st.radio(
-        "Choisissez le type de fichier à importer :",
-        ('xlsx', 'csv', 'netCDF')
-    )
-
-    uploaded_file = st.file_uploader("Choisissez un fichier", type=[file_type])
-
-    if uploaded_file is not None:
-        if file_type == 'xlsx':
-            df = pd.read_excel(uploaded_file)
-        elif file_type == 'csv':
-            df = pd.read_csv(uploaded_file)
-        elif file_type == 'netCDF':
-            ds = xr.open_dataset(uploaded_file)
-            df = ds.to_dataframe()
-
-        st.write("Aperçu des données :")
-        st.dataframe(df)
-        # Stocker les données dans la session pour y accéder plus tard
-        st.session_state['data'] = df
-        # Option pour passer à l'analyse exploratoire
-        if st.button("Passer à l'analyse exploratoire"):
-            analyse_exploratoire(df)  # Fonction à définir
-    else:
-        st.warning("Veuillez télécharger un fichier.")
+def information():
+    st.title("Objectifs de la plateforme")
 
 
-# Fonction pour la page d'analyse exploratoire
-def analyse_exploratoire(df):
-    st.title("Analyse Exploratoire des Données")
-    st.markdown("""
-        ### Explorez vos données de manière interactive.
-        Sélectionnez une variable pour commencer l'analyse.
-        """)
-
-    if 'data' not in st.session_state:
-        st.error("Aucune donnée disponible. Veuillez d'abord importer des données.")
-        return
-
-    st.write("Aexploration visuelle des données ")
-    # Generate the HTML using Pygwalker
-    pyg_html = pyg.to_html(df)
-
-    # Embed the HTML into the Streamlit app
-    components.html(pyg_html, height=1000, scrolling=True)
-
-    # Si des données sont disponibles, permettre à l'utilisateur de sélectionner une variable
-    variable = st.selectbox("Choisissez une variable à analyser :", df.columns)
-    st.write(f"Analyse de la variable {variable} :")
-
-    # Ici, vous pouvez ajouter des graphiques et des statistiques sur la variable choisie
-    # Exemple :
-    st.write(df[variable].describe())
-
-
+def support():
+    st.title("Tutoriel")
 
 
 # Menu de navigation
 st.sidebar.title("Menu")
 st.sidebar.markdown("Utilisez ce menu pour naviguer entre les différentes pages de l'application.")
-navigation_pages = ["Accueil", "Importation de données", "Analyse Exploratoire", "Prédictions", "Actualités", "Support"]
+navigation_pages = ["Accueil", "A propos de nous", "Support"]
 page = st.sidebar.radio("Aller à", navigation_pages)
 
 # Gestion de la navigation
 if page == "Accueil":
     home()
-elif page == "Importation de données":
-    importation()
-elif page == "Analyse Exploratoire":
-    if 'data' in st.session_state:
-        analyse_exploratoire(st.session_state['data'])
-    else:
-        st.error("Veuillez importer des données avant de passer à l'analyse.")
-# Ajouter d'autres pages ici
+elif page == "A propos de nous":
+    information()
+elif page == "Support":
+    support()
 
 # Pied de page
 st.markdown("---")

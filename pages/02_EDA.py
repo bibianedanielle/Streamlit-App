@@ -1,12 +1,9 @@
 import streamlit as st
-import pandas as pd
-import xarray as xr
 import pygwalker as pyg
 import streamlit.components.v1 as components
 
-from pages.02_Importation import df
 
-def EDA(df):
+def eda(df):
     st.title("Analyse Exploratoire des Données")
     st.markdown("""
         ### Explorez vos données de manière interactive.
@@ -32,7 +29,8 @@ def EDA(df):
     # Exemple :
     st.write(df[variable].describe())
 
-if not df:
-    print("Importez les données")
+
+if 'data' in st.session_state and st.session_state['data'] is not None:
+    eda(st.session_state['data'])
 else:
-    EDA(df)
+    st.write("Veuillez d'abord importer un fichier dans l'onglet 'Import'.")

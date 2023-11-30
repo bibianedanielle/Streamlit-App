@@ -1,8 +1,6 @@
 import streamlit as st
 import pandas as pd
 import xarray as xr
-import pygwalker as pyg
-import streamlit.components.v1 as components
 
 
 st.title("Importation de Fichiers")
@@ -32,7 +30,7 @@ if uploaded_file is not None:
     # Stocker les données dans la session pour y accéder plus tard
     st.session_state['data'] = df
     # Option pour passer à l'analyse exploratoire
-    if st.button("Passer à l'analyse exploratoire"):
-        analyse_exploratoire(df)  # Fonction à définir
-    else:
-        st.warning("Veuillez télécharger un fichier.")
+    # if st.button("Passer à l'analyse exploratoire"):
+    #     analyse_exploratoire(df)  # Fonction à définir
+    # else:
+    #     st.warning("Veuillez télécharger un fichier.")
