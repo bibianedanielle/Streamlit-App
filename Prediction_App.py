@@ -3,19 +3,22 @@ import pandas as pd
 import xarray as xr
 import pygwalker as pyg
 import streamlit.components.v1 as components
+from PIL import Image
 
 # Configuration initiale de la page
+
 st.set_page_config(
     page_title="Flood Prediction Platform",
     page_icon=":droplet:",
     layout="wide",
-    initial_sidebar_state="expanded"
+    initial_sidebar_state="expanded",
+    
 )
-
 
 # Fonction pour la page d'accueil
 def home():
-    st.image("images/flood.jpg", use_column_width=True)
+   
+    st.image("images/cotonou.jpg", use_column_width=True ,caption="Une image de cotonou au Bénin montrant une zone vulnérable aux inondations")
     st.title("Bienvenue sur la Plateforme de Prédiction des Inondations")
     st.markdown("""
         ### Anticipez les inondations avec une précision inégalée.
@@ -44,13 +47,29 @@ def home():
             .big-font {
                 font-size:30px !important;
                 font-weight: bold;
-            }
+                }
             </style>
-            """, unsafe_allow_html=True)
+            """,
+            unsafe_allow_html=True
+            )
 
 
 def information():
+    
     st.title("Objectifs de la plateforme")
+    st.markdown("""
+    L'objectif de cette platforme est de fournir les informations suivantes :
+    -  Prévisions des inondations en temps réel.
+    -  Zones à risque d'inondation.
+    -  Alertes précoces d'inondation.
+    """
+    )
+    st.markdown("""
+    Les informations fournies par cette  platforme sont importantes car elles peuvent aider les communautés à :
+    -  Prendre des mesures de prévention.
+    -  Se préparer à des inondations.
+    -  Réagir rapidement en cas d'inondation.
+    """)
 
 
 def support():
@@ -58,6 +77,7 @@ def support():
 
 
 # Menu de navigation
+
 st.sidebar.title("Menu")
 st.sidebar.markdown("Utilisez ce menu pour naviguer entre les différentes pages de l'application.")
 navigation_pages = ["Accueil", "A propos de nous", "Support"]
@@ -78,3 +98,6 @@ st.markdown("""
     [Mentions légales](#) | [Politique de confidentialité](#) | [Contact](#)
     Suivez-nous sur [Facebook](#), [Twitter](#), [LinkedIn](#).
     """)
+
+
+
